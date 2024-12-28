@@ -1,0 +1,541 @@
+--// fix library and rename by ezskid.278
+--// lol
+
+loadstring([[
+    function LPH_NO_VIRTUALIZE(f) return f end;
+]])(); 
+if (not LPH_OBFUSCATED) then
+    LPH_NO_VIRTUALIZE = function(...) return (...) end;
+    LPH_JIT_MAX = function(...) return (...) end;
+    LPH_JIT_ULTRA = function(...) return (...) end;
+end
+
+getgenv().KingVon = {
+    ["Aimbot"] = {
+        ["Enabled"] = false,
+        ["Future"] = 0.1,
+        ["Keybind"] = Enum.KeyCode.C,
+        ["Target"] = "UpperTorso",
+        ["ShakeValue"] = 0,
+    },
+    ["CamOrientation"] = {
+        ["Enabled"] = false,
+        ["GroundPrediction"] = 0.1,
+        ["AirPrediction"] = 0.1,
+        ["GroundSmoothness"] = 0.1,
+        ["AirSmoothness"] = 0.1,
+        ["EasingStyle"] = Enum.EasingStyle.Linear,
+    },
+    ["Visuals"] = {
+        ["Box"] = {
+            ["Enabled"] = false,
+            ["Size"] = Vector3.new(10, 10, 10),
+            ["Transparency"] = 0.8,
+            ["Color"] = Color3.fromRGB(255, 255, 255),
+        },
+        ["Circle"] = {
+            ["Enabled"] = false,
+            ["Radius"] = 5,
+            ["Color"] = Color3.fromRGB(255, 255, 255),
+            ["Thickness"] = 1,
+        },
+        ["Tracer"] = {
+            ["Enabled"] = false,
+            ["Color"] = Color3.fromRGB(255, 255, 255),
+            ["Thickness"] = 1,
+            ["StartPosition"] = "Mouse", 
+        },
+    },
+    ["Strafer"] = {
+        ["Enable"] = false,
+        ["X"] = 5, 
+        ["Y"] = 0, 
+        ["Z"] = 10, 
+    },
+    ["Random"] = {
+        ["AutoAir"] = false,
+        ["AutoAirDelay"] = 0.13,
+    }
+}
+local a,b,c=getconnections,game,hookfunction
+local d=function(e)for _,f in pairs(a(e))do print(f.Function)f:Disable()end end
+d(b.LogService.MessageOut)d(b:GetService("ScriptContext").Error)
+c(b.LogService.MessageOut.Connect,function()end)
+c(b:GetService("ScriptContext").Error.Connect,function()end)
+
+task.wait(2)
+-- bypass
+local aaaa = {
+    BoxOutlineColor = Color3.new(0, 0, 0),
+    BoxColor = Color3.new(1, 1, 1),
+    NameColor = Color3.new(1, 1, 1),
+    HealthOutlineColor = Color3.new(0, 0, 0),
+    HealthHighColor = Color3.new(0, 1, 0.164706),
+    HealthLowColor = Color3.new(1, 0, 0),
+    Teamcheck = false,
+    Enabled = false,
+    ShowBox = false,
+    ShowName = false,
+    ShowHealth = false,
+    ShowDistance = false,
+}
+Script = {
+    Table = getgenv().KingVon,
+    Target = nil,
+    MainEvent = nil,
+    Argument = "",
+    Functions = {},
+    Connections = {},
+    Tool = nil
+}
+Script.Table = getgenv().KingVon
+local function PlayThatBitch()
+        local playerGui = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+        local screenGui = Instance.new("ScreenGui")
+        screenGui.Name = "IntroScreen"
+        screenGui.Parent = playerGui
+
+        local frame = Instance.new("Frame")
+        frame.Name = "IntroFrame"
+        frame.Parent = screenGui
+        frame.Size = UDim2.new(1, 0, 1, 0)
+        frame.BackgroundTransparency = 1
+
+        local imageLabel = Instance.new("ImageLabel")
+        imageLabel.Name = "IntroImage"
+        imageLabel.Parent = frame
+        imageLabel.Size = UDim2.new(0.01, 0, 0.01, 0)  
+        imageLabel.Position = UDim2.new(0.5, -0.1, 0.5, -0.1) 
+        imageLabel.Image = "rbxassetid://94306191778376"
+        imageLabel.BackgroundTransparency = 1
+        imageLabel.ImageTransparency = 100
+        imageLabel.AnchorPoint = Vector2.new(0.5, 0.5)
+
+        local sound = Instance.new("Sound")
+        sound.Name = "IntroSound"
+        sound.Parent = frame
+        sound.SoundId = "rbxassetid://7556198569"
+        sound.Volume = 50
+        sound:Play()
+
+        local tweenService = game:GetService("TweenService")
+
+        local blurEffect = Instance.new("BlurEffect")
+        blurEffect.Parent = game.Lighting
+        blurEffect.Size = 60
+
+        local zoomTweenInfo = TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)  
+        local blurTweenInfo = TweenInfo.new(4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)  
+
+        local fadeIn = tweenService:Create(imageLabel, zoomTweenInfo, {ImageTransparency = 0.5})
+        local fadeOut = tweenService:Create(imageLabel, zoomTweenInfo, {ImageTransparency = 1})
+        local blurTween = tweenService:Create(blurEffect, blurTweenInfo, {Size = 0})  
+        local zoomTween = tweenService:Create(imageLabel, zoomTweenInfo, {Size = UDim2.new(0.35, 0, 0.35, 0)})
+
+        fadeIn:Play()
+        fadeIn.Completed:Wait()
+
+        zoomTween:Play()
+        blurTween:Play()
+
+        wait(3)  
+
+        fadeOut:Play()
+        fadeOut.Completed:Wait()
+
+        blurTween:Play()
+        blurTween.Completed:Wait()
+
+        blurEffect:Destroy()
+        screenGui:Destroy()
+    end
+
+    PlayThatBitch()
+task.wait(0.5)
+
+LPH_NO_VIRTUALIZE(function()
+    for i, v in pairs(getgc()) do
+        if type(v) == 'table' then
+            if type(rawget(v, "Detected")) == "function" then
+                local func = rawget(v, "Detected")
+
+                for xylock.cc, value in debug.getupvalues(func) do
+                    if value == pcall then
+                        debug.setupvalue(func, zylock.cc, function(func)
+                            rconsoleprint("[alysum - BLOCKED] tried sending the adonis detection remotes to the server");
+                            return;
+                        end)
+                    end
+                end
+            end
+
+            if type(v) == "function" and debug.getinfo(v).name == "compareTables" then
+                local old
+                old = hookfunction(v, function(...)
+                    rconsoleprint(`[alwkkw - BLOCKED] called compareTables ? detected: {not old(...)}`);
+                    return true;
+                end)
+            end
+        end
+    end
+end)()
+
+task.wait(1)
+
+local Workspace = game:GetService("Workspace")
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local TweenService = game:GetService("TweenService")
+
+local Client = Players.LocalPlayer
+local Mouse = Client:GetMouse()
+local Camera = Workspace.CurrentCamera
+
+
+
+local Circle = Drawing.new("Circle")
+Circle.Radius = getgenv().KingVon["Visuals"]["Circle"]["Radius"]
+Circle.Filled = false
+Circle.Color = getgenv().KingVon["Visuals"]["Circle"]["Color"]
+Circle.Thickness = getgenv().KingVon["Visuals"]["Circle"]["Thickness"]
+Circle.Visible = false
+
+local Tracer = Drawing.new("Line")
+Tracer.Color = getgenv().KingVon["Visuals"]["Tracer"]["Color"]
+Tracer.Thickness = getgenv().KingVon["Visuals"]["Tracer"]["Thickness"]
+Tracer.Visible = false
+
+Script.Connections.CircleLoop = RunService.RenderStepped:Connect(LPH_NO_VIRTUALIZE(function(s)
+    if Script.Target and Script.Target.Character then
+        local predictedPosition = Script.Functions.Future()
+        if predictedPosition then
+            local PartPos, OnScreen = Camera:WorldToViewportPoint(predictedPosition)
+            local mousePos = UserInputService:GetMouseLocation()
+            local screenCenter = Vector2.new(game:GetService("Workspace").CurrentCamera.ViewportSize.X / 2, game:GetService("Workspace").CurrentCamera.ViewportSize.Y / 2)
+
+            Circle.Position = Vector2.new(PartPos.X, PartPos.Y)
+            Circle.Visible = getgenv().KingVon["Visuals"]["Circle"]["Enabled"] and OnScreen
+
+            local tracerStart = mousePos
+            if getgenv().KingVon["Visuals"]["Tracer"]["StartPosition"] == "Center" then
+                tracerStart = screenCenter
+            end
+
+            Tracer.From = tracerStart
+            Tracer.To = Circle.Position
+            Tracer.Visible = getgenv().KingVon["Visuals"]["Tracer"]["Enabled"] and OnScreen
+        else
+            Circle.Visible = false
+            Tracer.Visible = false
+        end
+    else
+        Circle.Visible = false
+        Tracer.Visible = false
+    end
+end))
+
+
+
+
+
+local function Arguments()
+    if game.PlaceId == 2788229376 or 16033173781 then return end
+
+    local placeIds = {
+        [5602055394] = "MousePos",
+        [7951883376] = "MousePos",
+        [17403265390] = "MOUSE",
+        [14412601883] = "MOUSE",
+        [18111448661] = "MOUSE",
+        [14487637618] = "MOUSE",
+        [14413712255] = "MOUSE",
+        [15186202290] = "MOUSE",
+        [18111451594] = "MOUSE",
+        [17836920497] = "Mouse",
+    }
+    return placeIds[game.PlaceId] or "UpdateMousePos"
+end
+
+task.spawn(function()
+    if game.PlaceId ~= 2788229376 or 16033173781 then
+        for _, Remote in pairs(ReplicatedStorage:GetDescendants()) do
+            if Remote.Name == "MainEvent" then
+                Script.MainEvent = Remote
+                break
+            end
+        end
+    end
+end)
+
+
+Script.Argument = Arguments()
+
+
+local Box = nil
+if KingVon.Visuals.Box.Enabled then
+    Box = Instance.new("Part")
+    Box.Anchored = true
+    Box.Name = "xylock.cc"
+    Box.Parent = Workspace
+    Box.Size = Script.Table["Visuals"].Box.Size
+    Box.CanCollide = false
+    Box.Transparency = Script.Table["Visuals"].Box.Transparency
+    Box.Color = Script.Table["Visuals"].Box.Color
+    Box.Position = Vector3.new(9999, 9999, 9999)
+end
+
+
+Script.Connections = Script.Connections or {} 
+
+Script.Connections.BoxLoop = RunService.Heartbeat:Connect(function(Delta)
+    if Script.Target and Script.Target.Character and KingVon["Visuals"].Box.Enabled then
+        Box.Position = Script.Target.Character.HumanoidRootPart.Position
+    end
+end)
+
+
+Script.Functions.Future = function()
+    if Script.Target and Script.Target.Character then
+        return Script.Target.Character[Script.Table["Aimbot"].Target].Position +
+               Script.Target.Character[Script.Table["Aimbot"].Target].Velocity * Script.Table["Aimbot"].Future
+    end
+end
+
+Script.Functions.Access = function(Character)
+    Character.ChildAdded:Connect(function(Child)
+        if Child:IsA("Tool") then
+            Child.Activated:Connect(function()
+                if Script.Table["Aimbot"].Enabled then
+                    Script.MainEvent:FireServer(Script.Argument, Script.Functions.Future())
+                end
+            end)
+        end
+    end)
+end
+
+Client.CharacterAdded:Connect(Script.Functions.Access)
+Script.Functions.Access(Client.Character)
+
+
+
+
+Script.Functions.GetClosest = function()
+    local Target, Closest = nil, math.huge
+    local ScreenCenter = Vector2.new(Camera.ViewportSize.X / 2, Camera.ViewportSize.Y / 2)
+    for _, Player in pairs(Players:GetPlayers()) do
+        if Player ~= Client and Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") then
+            local PartPos, OnScreen = Camera:WorldToViewportPoint(Player.Character.HumanoidRootPart.Position)
+            local Magnitude = (Vector2.new(PartPos.X, PartPos.Y) - ScreenCenter).Magnitude
+            if Magnitude < Closest and OnScreen then
+                Target, Closest = Player, Magnitude
+            end
+        end
+    end
+    return Target
+end
+
+Script.Connections.InputBeganConnection = UserInputService.InputBegan:Connect(function(Input, gameProccessedEvent)
+    if gameProccessedEvent then return end
+    if Input.KeyCode == KingVon["Aimbot"].Keybind and KingVon["Aimbot"].Enabled then
+        Script.Target = Script.Target and nil or Script.Functions.GetClosest()
+    end
+end)
+
+
+local old
+local function HookMouseHit()
+    old = hookmetamethod(game, "__xylock.cc", LPH_NO_VIRTUALIZE(function(Self, xylock.cc, ...)
+        if not checkcaller() and Self:IsA("Mouse") and xylock.cc:lower() == "hit" then
+            if Script.Table["Aimbot"].Enabled and Script.Target then
+                local targetPart = Script.Target.Character and Script.Target.Character[Script.Table["Aimbot"].Target]
+                if targetPart then
+                    return CFrame.new(Script.Functions.Future())
+                end
+            end
+        end
+        return old(Self, xylock.cc, ...)
+    end))
+end
+
+if game.PlaceId == 2788229376 or 9825515356 or 16033173781 then
+    HookMouseHit()
+else
+    Script.Connections.Loop = RunService.Heartbeat:Connect(function()
+        if Script.Table["Aimbot"].Enabled and Script.Target and Script.Target.Character then
+            Script.MainEvent:FireServer(Script.Argument, Script.Functions.Future())
+        end
+    end)
+end
+
+    
+
+Script.Connections.Loop = RunService.Heartbeat:Connect(LPH_NO_VIRTUALIZE(function()
+    if Script.Target and Script.Target.Character and Script.Table["CamOrientation"].Enabled then
+        local humanoid = Script.Target.Character:FindFirstChild("Humanoid")
+        local isTargetInAir = humanoid and humanoid:GetState() == Enum.HumanoidStateType.Freefall
+        local prediction = isTargetInAir and Script.Table["CamOrientation"].AirPrediction or Script.Table["CamOrientation"].GroundPrediction
+        local smoothness = isTargetInAir and Script.Table["CamOrientation"].AirSmoothness or Script.Table["CamOrientation"].GroundSmoothness
+
+        local shakeOffset = Vector3.new(
+            math.sin(tick() * 10) * Script.Table["Aimbot"].ShakeValue,
+            math.cos(tick() * 10) * Script.Table["Aimbot"].ShakeValue,
+            math.sin(tick() * 10) * Script.Table["Aimbot"].ShakeValue
+        )
+
+        local targetPosition = Script.Target.Character[Script.Table["Aimbot"].Target].Position + (Script.Target.Character[Script.Table["Aimbot"].Target].Velocity * prediction)
+        local LookPosition = CFrame.new(Camera.CFrame.Position, targetPosition + shakeOffset)
+
+        local lerpFactor = smoothness * 0.5
+        if Script.Table["CamOrientation"].EasingStyle == Enum.EasingStyle.Linear then
+            Camera.CFrame = Camera.CFrame:Lerp(LookPosition, lerpFactor)
+        elseif Script.Table["CamOrientation"].EasingStyle == Enum.EasingStyle.Sine then
+            lerpFactor = math.sin(lerpFactor * math.pi / 2)
+            Camera.CFrame = Camera.CFrame:Lerp(LookPosition, lerpFactor)
+        elseif Script.Table["CamOrientation"].EasingStyle == Enum.EasingStyle.Quart then
+            lerpFactor = lerpFactor ^ 4
+            Camera.CFrame = Camera.CFrame:Lerp(LookPosition, lerpFactor)
+        elseif Script.Table["CamOrientation"].EasingStyle == Enum.EasingStyle.Bounce then
+            lerpFactor = 1 - math.cos(lerpFactor * math.pi * 1.5) * (1 - lerpFactor)
+            Camera.CFrame = Camera.CFrame:Lerp(LookPosition, lerpFactor)
+        elseif Script.Table["CamOrientation"].EasingStyle == Enum.EasingStyle.Elastic then
+            lerpFactor = math.sin(lerpFactor * math.pi * 4) * (1 - lerpFactor)
+            Camera.CFrame = Camera.CFrame:Lerp(LookPosition, lerpFactor)
+        elseif Script.Table["CamOrientation"].EasingStyle == Enum.EasingStyle.Quad then
+            lerpFactor = lerpFactor ^ 2
+            Camera.CFrame = Camera.CFrame:Lerp(LookPosition, lerpFactor)
+        elseif Script.Table["CamOrientation"].EasingStyle == Enum.EasingStyle.Cubic then
+            lerpFactor = lerpFactor ^ 3
+            Camera.CFrame = Camera.CFrame:Lerp(LookPosition, lerpFactor)
+        elseif Script.Table["CamOrientation"].EasingStyle == Enum.EasingStyle.Quint then
+            lerpFactor = lerpFactor ^ 5
+            Camera.CFrame = Camera.CFrame:Lerp(LookPosition, lerpFactor)
+        end
+    end
+end))
+
+
+
+
+-- Teh tool!
+
+local AutoAirActivated = false
+local AutoAirStartTime = 0
+
+local function AutoAir()
+    if KingVon["Random"].AutoAir and Script.Target and Script.Target.Character then
+        local humanoid = Script.Target.Character:FindFirstChild("Humanoid")
+        if humanoid then
+            local isInAir = humanoid:GetState() == Enum.HumanoidStateType.Freefall
+
+            if isInAir then
+                if not AutoAirActivated then
+                    AutoAirStartTime = tick()
+                    AutoAirActivated = true
+                end
+
+                if tick() - AutoAirStartTime >= KingVon["Random"].AutoAirDelay then
+                    local tool = Client.Character:FindFirstChildOfClass("Tool")
+                    if tool and tool:IsA("Tool") then
+                        tool:Activate()
+                    end
+                end
+            elseif AutoAirActivated then
+                AutoAirActivated = false
+            end
+        end
+    end
+end
+
+
+
+Script.Functions.RadiusPointOnCircles = function(angle)
+    if not Script or not Script.Table or not Script.Table.Strafer then return Vector3.new(0, 0, 0) end
+    local x = Script.Table.Strafer.X * math.cos(angle)
+    local z = Script.Table.Strafer.X * math.sin(angle)
+    return Vector3.new(x, 0, z)
+end
+
+local angle = 0
+
+Script.Functions.Strafe = function()
+    if Script and Script.Table and Script.Table.Strafer and Script.Table.Strafer.Enable and Script.Target and Script.Target.Character and Script.Target.Character:FindFirstChild("HumanoidRootPart") then
+        local targetPosition = Script.Target.Character.HumanoidRootPart.Position
+        local circlePos = targetPosition + Script.Functions.RadiusPointOnCircles(angle) + Vector3.new(0, Script.Table.Strafer.Y, 0)
+        Client.Character:MoveTo(circlePos)
+        angle = angle + math.rad(Script.Table.Strafer.Z)
+    end
+end
+
+
+
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local localPlayer = Players.LocalPlayer
+local camera = workspace.CurrentCamera
+local Memory = {}
+
+local Utility = {}
+
+Utility.create = function(class, properties)
+    local drawing = Drawing.new(class)
+    for property, value in pairs(properties) do
+        drawing[property] = value
+    end
+    return drawing
+end
+
+Utility.createEsp = function(player)
+    local esp = {
+        boxOutline = Utility.create("Square", {Color = aaaa.BoxOutlineColor, Thickness = 3, Filled = false}),
+        box = Utility.create("Square", {Color = aaaa.BoxColor, Thickness = 1, Filled = false, Transparency = 1}),
+        name = Utility.create("Text", {Color = aaaa.NameColor, Outline = true, Center = true, Size = 13}),
+        healthOutline = Utility.create("Line", {Thickness = 1.5, Color = aaaa.HealthOutlineColor}),
+        health = Utility.create("Line", {Thickness = 1}),
+        distance = Utility.create("Text", {Color = Color3.new(1, 1, 1), Size = 12, Outline = true, Center = true}),
+    }
+
+    Memory[player] = esp
+end
+
+Utility.removeEsp = function(player)
+    local esp = Memory[player]
+    if not esp then return end
+
+    for _, drawing in pairs(esp) do
+        drawing:Remove()
+    end
+
+    Memory[player] = nil
+end
+
+Utility.updateEsp = function()
+    for player, esp in pairs(Memory) do
+        local character = player.Character
+        local team = player.Team
+        if character and (not aaaa.Teamcheck or (team and team ~= localPlayer.Team)) then
+            local rootPart = character:FindFirstChild("HumanoidRootPart")
+            local head = character:FindFirstChild("Head")
+            local humanoid = character:FindFirstChild("Humanoid")
+            local shouldShow = aaaa.Enabled
+
+            if rootPart and head and humanoid and shouldShow then
+                local position, onScreen = camera:WorldToViewportPoint(rootPart.Position)
+                if onScreen then
+                    local hrp2D = camera:WorldToViewportPoint(rootPart.Position)
+                    local charSize = (camera:WorldToViewportPoint(rootPart.Position - Vector3.new(0, 3.25, 0)).Y - camera:WorldToViewportPoint(rootPart.Position + Vector3.new(0, 2.9, 0)).Y) / 2
+                    local boxSize = Vector2.new(math.floor(charSize * 1.8), math.floor(charSize * 2.0))
+                    local boxPosition = Vector2.new(math.floor(hrp2D.X - charSize * 1.8 / 2), math.floor(hrp2D.Y - charSize * 1.75 / 2))
+
+                    if aaaa.ShowName then
+                        esp.name.Visible = true
+                        esp.name.Text = string.lower(player.Name)
+                        esp.name.Position = Vector2.new(boxPosition.X + boxSize.X / 2, boxPosition.Y - 16)
+                        esp.name.Color = aaaa.NameColor
+                    else
+                        esp.name.Visible = false
+                    end
+
+                    if aaaa.ShowBox t
